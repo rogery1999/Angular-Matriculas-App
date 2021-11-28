@@ -1,0 +1,47 @@
+.nota-item {
+    display: flex;
+    background-color: rgb(233, 223, 223);
+    width: 90px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+    border-radius: 20px;
+}
+
+.notas {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.header-item {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-item-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: white
+}
+
+.item {
+    background-color: rgb(114, 107, 107);
+    padding: 10px 5px;
+    border-radius: 10px;
+    margin: 10px 0px;
+}
+
+.nota-label {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.obligatorio {
+    background-color: rgb(204, 204, 77);
+}

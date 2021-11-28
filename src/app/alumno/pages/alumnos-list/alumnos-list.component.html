@@ -1,0 +1,11 @@
+<article class="container">
+    <div class="encabezado">
+        <h2>Alumnos:</h2>
+        <button type="button" class="btn btn-primary" (click)="navigateToAdd()">
+      Agregar
+    </button>
+    </div>
+    <div class="listado">
+        <app-alumno-list-item *ngFor="let alumno of alumnos" [alumno]="alumno" (click)="navigateToAdd(alumno.id)" (eliminar)="deleteAlumno($event)"></app-alumno-list-item>
+    </div>
+</article>

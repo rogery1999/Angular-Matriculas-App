@@ -1,0 +1,38 @@
+<div class="header">
+    <h2>{{ alumnoId === -1 ? "Registrar nuevo usuario" : alumnoId }}</h2>
+    <button *ngIf="alumnoId > 0" class="btn btn-info" (click)="toggleEditar()">
+    Editar
+  </button>
+</div>
+<div class="formulario">
+    <form [formGroup]="formularioAlumno" autocomplete="off">
+        <div class="mb-3">
+            <label for="nombres1" class="form-label">Nombres</label>
+            <input type="text" class="form-control" id="nombres1" formControlName="nombres" />
+        </div>
+        <div class="mb-3">
+            <label for="apellidos1" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="apellidos1" formControlName="apellidos" />
+        </div>
+        <div class="mb-3">
+            <label for="fecha1" class="form-label">Fecha de Nacimiento</label>
+            <input type="text" class="form-control" id="fecha1" formControlName="fechaNacimiento" />
+        </div>
+        <div class="mb-3">
+            <label for="sexo1" class="form-label">Sexo</label>
+            <input type="text" class="form-control" id="sexo1" formControlName="sexo" />
+        </div>
+        <!-- botones del formulario -->
+        <button *ngIf="alumnoId > 0" type="button" class="btn btn-success" (click)="actualizar()" [disabled]="!editar">
+      Actualizar
+    </button>
+        <button *ngIf="alumnoId === -1" type="button" class="btn btn-dark" (click)="crear()">
+      Guardar
+    </button>
+    </form>
+</div>
+
+<div *ngIf="alumnoId > 0">
+    <h2>Cursos:</h2>
+    <app-curso-item *ngFor="let curso of cursosMock" [curso]="curso"></app-curso-item>
+</div>

@@ -1,0 +1,12 @@
+.listado {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 50px 0px;
+}
+
+.encabezado {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

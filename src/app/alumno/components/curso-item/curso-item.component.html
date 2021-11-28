@@ -1,0 +1,12 @@
+<div [class]="itemClass()">
+    <div class="header-item">
+        <span class="header-item-text">{{ curso!.nombre }}</span>
+        <button type="button" class="btn btn-primary">Editar</button>
+    </div>
+    <div class="notas">
+        <div class="nota-item" *ngFor="let nota of notas">
+            <span class="nota-label">{{ nota.label }}</span>
+            <span>{{ nota.nota === null ? "-" : nota.nota }}</span>
+        </div>
+    </div>
+</div>
