@@ -34,5 +34,6 @@
 
 <div *ngIf="alumnoId > 0">
     <h2>Cursos:</h2>
-    <app-curso-item *ngFor="let curso of cursosMock" [curso]="curso"></app-curso-item>
+    <app-curso-item *ngFor="let curso of cursos" [curso]="curso" (editar)="editarNotas($event)"></app-curso-item>
+    <h3 *ngIf="cursos.length === 0">No tiene cursos registrados</h3>
 </div>

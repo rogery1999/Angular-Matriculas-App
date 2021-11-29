@@ -1,1 +1,32 @@
-<p>notas-cursos works!</p>
+<div class="header">
+    <h2>Notas</h2>
+    <button class="btn btn-info" (click)="toggleEditar()">Editar</button>
+</div>
+<div class="formulario">
+    <form [formGroup]="formularioNotas" autocomplete="off">
+        <div class="mb-3">
+            <label for="practica_1" class="form-label">Nombres</label>
+            <input type="text" class="form-control" id="practica_1" formControlName="practica_1" />
+        </div>
+        <div class="mb-3">
+            <label for="practica_2" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="practica_2" formControlName="practica_2" />
+        </div>
+        <div class="mb-3">
+            <label for="practica_3" class="form-label">Fecha de Nacimiento</label>
+            <input type="text" class="form-control" id="practica_3" formControlName="practica_3" />
+        </div>
+        <div class="mb-3">
+            <label for="parcial" class="form-label">Sexo</label>
+            <input type="text" class="form-control" id="parcial" formControlName="parcial" />
+        </div>
+        <div class="mb-3">
+            <label for="final" class="form-label">Sexo</label>
+            <input type="text" class="form-control" id="final" formControlName="final" />
+        </div>
+        <!-- botones del formulario -->
+        <button type="button" class="btn btn-success" (click)="updateGrades()" [disabled]="!editar">
+      Actualizar
+    </button>
+    </form>
+</div>

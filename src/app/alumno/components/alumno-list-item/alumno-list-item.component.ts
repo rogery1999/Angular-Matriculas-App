@@ -9,10 +9,16 @@ import { IAlumno } from '../../interfaces/alumnos';
 export class AlumnoListItemComponent implements OnInit {
   @Input() alumno?: IAlumno;
   @Output() eliminar = new EventEmitter<number>();
+  fechaNacimiento: string = '';
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fechaNacimiento = this.alumno!.fechaNacimiento.split('T')[0]
+      .split('-')
+      .reverse()
+      .join('-');
+  }
 
   delete(event: any) {
     event.stopPropagation();

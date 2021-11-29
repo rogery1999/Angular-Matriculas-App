@@ -23,7 +23,7 @@ export class CursoItemComponent implements OnInit {
   }
 
   editarHandler() {
-    this.editar.emit(this.curso!.id);
+    this.editar.emit(this.curso!.notas.id);
   }
 
   transformNotas() {

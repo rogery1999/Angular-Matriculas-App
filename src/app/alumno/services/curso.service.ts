@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Notas } from '../interfaces/alumnos';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,14 @@ export class CursoService {
   constructor(private http: HttpClient) {}
 
   public get url(): string {
-    return `${this.host}/curso`;
+    return `${this.host}/notas`;
   }
 
-  addGrade(gradeId: string, grade: number) {
-    return this.http.put(`${this.url}/grade`, { gradeId, grade });
+  updateGrade(notasId: number, grades: any) {
+    return this.http.put<Notas>(`${this.url}/${notasId}`, { ...grades });
+  }
+
+  getGrade(notasId: number) {
+    return this.http.get<Notas>(`${this.url}/${notasId}`);
   }
 }

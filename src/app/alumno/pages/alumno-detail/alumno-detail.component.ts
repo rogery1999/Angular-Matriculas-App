@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  IAlumno,
   IAlumnoCreateData,
-  IAlumnoDetail,
   ICurso,
+  InscripcionesCurso,
+  ISpecificUser,
 } from '../../interfaces/alumnos';
 import { AlumnoService } from '../../services/alumno.service';
 
@@ -16,37 +16,9 @@ import { AlumnoService } from '../../services/alumno.service';
 })
 export class AlumnoDetailComponent implements OnInit {
   editar = false;
-  alumno?: IAlumnoDetail;
+  alumno?: ISpecificUser;
   alumnoId: number = 0;
-
-  cursosMock: ICurso[] = [
-    {
-      descripcion: 'DESCRIPCION 1',
-      id: 1,
-      nombre: 'curso 1',
-      obligatorio: 1,
-      notas: {
-        final: null,
-        parcial: null,
-        practica_1: 10,
-        practica_2: 15,
-        practica_3: 17,
-      },
-    },
-    {
-      descripcion: 'DESCRIPCION 2',
-      id: 1,
-      nombre: 'curso 2',
-      obligatorio: 0,
-      notas: {
-        final: null,
-        parcial: null,
-        practica_1: 10,
-        practica_2: 15,
-        practica_3: 17,
-      },
-    },
-  ];
+  cursos: ICurso[] = [];
 
   formularioAlumno: FormGroup = this.fb.group({
     nombres: [],
@@ -67,7 +39,7 @@ export class AlumnoDetailComponent implements OnInit {
       this.alumnoId = -1;
     } else {
       this.alumnoId = parseInt(idAlumno);
-      // this.getDetail();
+      this.getDetail();
       this.changeFormStatus(this.editar);
     }
   }
@@ -75,11 +47,11 @@ export class AlumnoDetailComponent implements OnInit {
   getDetail() {
     this.as.getAlumno(this.alumnoId).subscribe((response) => {
       this.alumno = { ...response };
-
+      this.cursos = this.transformToCursos(response.inscripcionesCursos);
       this.formularioAlumno.controls['nombres'].setValue(response.nombres);
       this.formularioAlumno.controls['apellidos'].setValue(response.apellidos);
       this.formularioAlumno.controls['fechaNacimiento'].setValue(
-        response.fechaNacimiento
+        response.fechaNacimiento.split('T')[0]
       );
       this.formularioAlumno.controls['sexo'].setValue(response.sexo);
     });
@@ -88,17 +60,37 @@ export class AlumnoDetailComponent implements OnInit {
   actualizar() {
     const { nombres, apellidos, fechaNacimiento, sexo } =
       this.formularioAlumno.value;
-    const alumnoClone: IAlumno = {
+    const alumnoClone: any = {
       apellidos,
       fechaNacimiento,
-      id: this.alumnoId,
       nombres,
       sexo,
     };
     console.log('alumno', alumnoClone);
-    this.as.update(alumnoClone).subscribe((response) => {
-      this.alumno = { ...response };
+    this.as.update(alumnoClone, this.alumnoId).subscribe((response) => {
+      this.alumno = { ...this.alumno!, ...response };
       this.editar = false;
+      this.changeFormStatus(false);
+    });
+  }
+
+  transformToCursos(inscripciones: InscripcionesCurso[]): ICurso[] {
+    return inscripciones.map(({ curso, id, notas }) => {
+      return {
+        descripcion: curso.descripcion,
+        id: curso.id,
+        nombre: curso.nombre,
+        obligatorio: curso.obligatoriedad,
+        inscripcionId: id,
+        notas: {
+          final: notas.final,
+          id: notas.id,
+          parcial: notas.parcial,
+          practica_1: notas.practica_1,
+          practica_2: notas.practica_2,
+          practica_3: notas.practica_3,
+        },
+      };
     });
   }
 
@@ -132,7 +124,11 @@ export class AlumnoDetailComponent implements OnInit {
     };
     console.log('data', data);
     this.as.create(data).subscribe((response) => {
-      this.router.navigate([`alumno/${response.id}`], { replaceUrl: true });
+      window.history.back();
     });
+  }
+
+  editarNotas(notasId: number) {
+    this.router.navigateByUrl(`alumno/notas/${notasId}`);
   }
 }

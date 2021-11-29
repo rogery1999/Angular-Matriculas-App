@@ -22,7 +22,7 @@ export class AlumnosListComponent implements OnInit {
   constructor(private as: AlumnoService, private router: Router) {}
 
   ngOnInit(): void {
-    // this.getAllAlumnos();
+    this.getAllAlumnos();
   }
 
   getAllAlumnos() {

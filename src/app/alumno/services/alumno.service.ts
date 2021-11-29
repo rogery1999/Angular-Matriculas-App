@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import {
   IAlumno,
   IAlumnoCreateData,
-  IAlumnoDetail,
+  ISpecificUser,
 } from '../interfaces/alumnos';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class AlumnoService {
   constructor(private http: HttpClient) {}
 
   private get url(): string {
-    return `${this.host}/alumno`;
+    return `${this.host}/alumnos`;
   }
 
   getAll(): Observable<IAlumno[]> {
@@ -28,15 +28,15 @@ export class AlumnoService {
     return this.http.post<IAlumno>(`${this.url}`, { ...data });
   }
 
-  update(alumno: IAlumno): Observable<IAlumno> {
-    return this.http.put<IAlumno>(`${this.url}`, { ...alumno });
+  update(alumno: any, alumnoId: number): Observable<IAlumno> {
+    return this.http.put<IAlumno>(`${this.url}/${alumnoId}`, { ...alumno });
   }
 
   delete(alumnoId: number): Observable<IAlumno> {
     return this.http.delete<IAlumno>(`${this.url}/${alumnoId}`);
   }
 
-  getAlumno(alumnoId: number): Observable<IAlumnoDetail> {
-    return this.http.get<IAlumnoDetail>(`${this.url}/${alumnoId}`);
+  getAlumno(alumnoId: number): Observable<ISpecificUser> {
+    return this.http.get<ISpecificUser>(`${this.url}/${alumnoId}`);
   }
 }

@@ -3,9 +3,9 @@
       alumno!.sexo === 'M' ? 'assets/images/men.jpg' : 'assets/images/woman.png'
     " alt="" />
     <div class="descripcion">
-        <span>Rogery</span>
-        <span>Vargas</span>
-        <span>17-08-1999</span>
+        <span>{{ alumno!.nombres }}</span>
+        <span>{{ alumno!.apellidos }}</span>
+        <span>{{ fechaNacimiento }}</span>
     </div>
     <button type="button" class="btn btn-danger" (click)="delete($event)">
     Eliminar

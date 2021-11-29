@@ -1,7 +1,9 @@
 <div [class]="itemClass()">
     <div class="header-item">
         <span class="header-item-text">{{ curso!.nombre }}</span>
-        <button type="button" class="btn btn-primary">Editar</button>
+        <button type="button" class="btn btn-primary" (click)="editarHandler()">
+      Editar
+    </button>
     </div>
     <div class="notas">
         <div class="nota-item" *ngFor="let nota of notas">

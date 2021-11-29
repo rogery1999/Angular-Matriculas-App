@@ -17,7 +17,7 @@ const routes: Routes = [
         component: AlumnoDetailComponent,
       },
       {
-        path: 'notas',
+        path: 'notas/:idNotas',
         component: NotasCursosComponent,
       },
       {
